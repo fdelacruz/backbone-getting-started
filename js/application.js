@@ -26,10 +26,13 @@ var AnimalView = Backbone.View.extend({
     'click .edit':   'editAnimal',
     'click .delete': 'deleteAnimal'
   },
+  newTemplate: _.template('<%= name %> is <%= color %> and says <%= sound %>'), // inline template
   initialize: function() {
     this.render(); // render is an optional function that defines the logic for rendering a template
   },
   render: function() {
-    this.$el.html(this.model.get('name') + ' is ' + this.model.get('color') + ' and says ' + this.model.get('sound'));
+    // the below line represents the code prior to adding the template
+    // this.$el.html(this.model.get('name') + ' is ' + this.model.get('color') + ' and says ' + this.model.get('sound'));
+    this.$el.html(this.newTemplate(this.model.toJSON())); // calls the template
   }
 });
