@@ -1,6 +1,6 @@
 <!DOCTYPE HTML>
 <html>
-<head>
+  <head>
     <meta charset="UTF-8">
     <title>Backbone.js</title>
 </head>
@@ -9,5 +9,13 @@
 <script src="js/underscore.js"></script>
 <script src="js/backbone.js"></script>
 <script src="js/application.js"></script>
+
+    <!-- external template -->
+    <script id="dogTemplate" type="text/template">
+      <%= name %> is <%= color %> and says <%= sound %>
+    </script>
+
+    <!-- application.js must be called after the script template, otherwise you'll get an error -->
+    <script src="js/application.js"></script>
 </body>
 </html>
