@@ -41,12 +41,21 @@ var AnimalCollection = Backbone.Collection.extend({
   model: Animal
 });
 
-// adding individual models to collection
-var chihuahua = new Animal({name: 'Sugar', color: 'black', sound: 'woof'});
-var chihuahuaView = new AnimalView({model: chihuahua});
-var animalCollection = new AnimalCollection(); // only need to create the collection once
-animalCollection.add(chihuahua);
-
-var pug = new Animal({name: 'Gizmo', color: 'tan', sound: 'woof'});
-var pugView = new AnimalView({model: pug});
-animalCollection.add(pug); // can now directly add to animalCollection
+// adding multiple models to collection
+var animalCollection = new AnimalCollection([
+  {
+    name: 'Sugar',
+    color: 'black',
+    sound: 'woof'
+  },
+  {
+    name: 'Gizmo',
+    color: 'tan',
+    sound: 'woof'
+  },
+  {
+    name: 'Biscuit',
+    color: 'brown',
+    sound: 'arf'
+  }
+])
