@@ -36,3 +36,7 @@ var AnimalView = Backbone.View.extend({
     this.$el.html(this.newTemplate(this.model.toJSON())); // calls the template
   }
 });
+
+var AnimalCollection = Backbone.Collection.extend({
+  model: Animal
+});
