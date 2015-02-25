@@ -59,3 +59,21 @@ var animalCollection = new AnimalCollection([
     sound: 'arf'
   }
 ])
+
+// View for all animals (collection)
+var AnimalsView = Backbone.View.extend({ // calling this AnimalsView to distinguish as the view for the collection
+  tagName: 'ul',
+  initialize: function(){
+    this.collection;
+  },
+  render: function() {
+    this.collection.each(function(Animal){
+      var animalView = new AnimalView({model: Animal});
+      $(document.body).append(animalView.el);
+    });
+  }
+});
+
+// creates view for collection and renders collection
+var animalsView = new AnimalsView({collection: animalCollection});
+animalsView.render();
