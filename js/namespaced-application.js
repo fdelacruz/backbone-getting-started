@@ -14,10 +14,10 @@ Tutorial.Models.Animal = Backbone.Model.extend({
   },
   validate: function(attrs, options){
     if ( !attrs.name ){
-        alert('Your animal must have a name!');
+      alert('Your animal must have a name!');
     }
     if ( attrs.name.length < 2 ){
-        alert('Your animal\'s name must have more than one letter!');
+      alert('Your animal\'s name must have more than one letter!');
     }
   },
   sleep: function(){
@@ -31,14 +31,30 @@ Tutorial.Views.Animal = Backbone.View.extend({
   className: 'animal', // optional, can also set multiple like 'animal dog'
   id: 'dogs', // also optional
   events: {
-    'click':         'alertTest',
+    // 'click':         'alertTest',
     'click .edit':   'editAnimal',
     'click .delete': 'deleteAnimal'
   },
-  // newTemplate: _.template('<%= name %> is <%= color %> and says <%= sound %>'), // inline template
+    // alertTest: function () {
+    //  alert('Backbone click event works');
+    // },
+  editAnimal: function() {
+    var newAnimal = prompt("New animal name: ", this.model.get('name'));
+    if (!newAnimal)return; // no change ir user hits cancel
+    this.model.set('name', newAnimal); // sets new name to model
+  },
+  deleteAnimal: function() {
+    this.model.destroy(); // deletes the model when delete button clicked
+  },
+    // newTemplate: _.template('<%= name %> is <%= color %> and says <%= sound %>'), // inline template
   newTemplate: _.template($('#dogTemplate').html()), // external template
   initialize: function() {
     this.render(); // render is an optional function that defines the logic for rendering a template
+    this.model.on('change', this.render, this); // calls render function once name changed
+    this.model.on('destroy', this.remove, this); //calls remove function once model deleted
+  },
+  remove: function() {
+    this.$el.remove(); // removes the HTML element from view when delete button clicked/model deleted
   },
   render: function() {
     // the below line represents the code prior to adding the template
@@ -64,21 +80,21 @@ animalCollection.add(pug); // can now directly add to animalCollection
 
 // adding multiple models to collection (this will override the above Tutorial.Collections.Animal)
 var animalCollection = new Tutorial.Collections.Animal([
-  {
-    name: 'Sugar',
-    color: 'black',
-    sound: 'woof'
-  },
-  {
-    name: 'Gizmo',
-    color: 'tan',
-    sound: 'woof'
-  },
-  {
-    name: 'Biscuit',
-    color: 'brown',
-    sound: 'arf'
-  }
+    {
+      name: 'Sugar',
+      color: 'black',
+      sound: 'woof'
+    },
+    {
+      name: 'Gizmo',
+      color: 'tan',
+      sound: 'woof'
+    },
+    {
+      name: 'Biscuit',
+      color: 'brown',
+      sound: 'arf'
+    }
 ]);
 
 // View for all animals (collection)
